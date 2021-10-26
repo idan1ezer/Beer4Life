@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"></View>
+
+    <LinearLayout
+        android:id="@+id/layout_table"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/layout_row_1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/bar_table_laned"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/IMG_row1_beer1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/icon_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/IMG_row1_beer2"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/icon_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/IMG_row1_beer3"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/icon_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/IMG_row1_player"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/player">
+            </ImageView>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/layout_row_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/bar_table_laned"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/IMG_row2_beer1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/icon_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/IMG_row2_beer2"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="visible"
+                android:layout_weight="1"
+                android:src="@drawable/icon_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/IMG_row2_beer3"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/icon_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/IMG_row2_player"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/player">
+            </ImageView>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/layout_row_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/bar_table_laned"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/IMG_row3_beer1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/icon_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/IMG_row3_beer2"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/icon_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/IMG_row3_beer3"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/icon_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/IMG_row3_player"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/player">
+            </ImageView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Button>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
