@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"></View>
 
     <LinearLayout
         android:id="@+id/layout_table"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -27,7 +27,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/IMG_row1_beer1"
+                android:id="@+id/panel_IMG_row1_beer1"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:visibility="invisible"
@@ -36,7 +36,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/IMG_row1_beer2"
+                android:id="@+id/panel_IMG_row1_beer2"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:visibility="invisible"
@@ -45,7 +45,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/IMG_row1_beer3"
+                android:id="@+id/panel_IMG_row1_beer3"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:visibility="invisible"
@@ -54,7 +54,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/IMG_row1_player"
+                android:id="@+id/panel_IMG_row1_player"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:visibility="invisible"
@@ -75,7 +75,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/IMG_row2_beer1"
+                android:id="@+id/panel_IMG_row2_beer1"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:visibility="invisible"
@@ -84,7 +84,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/IMG_row2_beer2"
+                android:id="@+id/panel_IMG_row2_beer2"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:visibility="visible"
@@ -93,7 +93,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/IMG_row2_beer3"
+                android:id="@+id/panel_IMG_row2_beer3"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:visibility="invisible"
@@ -102,7 +102,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/IMG_row2_player"
+                android:id="@+id/panel_IMG_row2_player"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -122,7 +122,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/IMG_row3_beer1"
+                android:id="@+id/panel_IMG_row3_beer1"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:visibility="invisible"
@@ -131,7 +131,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/IMG_row3_beer2"
+                android:id="@+id/panel_IMG_row3_beer2"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:visibility="invisible"
@@ -140,7 +140,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/IMG_row3_beer3"
+                android:id="@+id/panel_IMG_row3_beer3"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:visibility="invisible"
@@ -149,7 +149,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/IMG_row3_player"
+                android:id="@+id/panel_IMG_row3_player"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:visibility="invisible"
@@ -163,21 +163,27 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_buttons"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/panel_BTN_button1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </Button>
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            />
 
         <Button
+            android:id="@+id/panel_BTN_button2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </Button>
-
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            />
     </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>
