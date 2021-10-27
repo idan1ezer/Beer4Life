@@ -3,6 +3,7 @@ package com.example.beer4life;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -23,7 +24,47 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         findViews();
+
+
+
+
+        panel_BTN_button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                move(-1);
+            }
+        });
+
+        panel_BTN_button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                move(1);
+            }
+        });
+
+
+
+
     }
+
+    private void move(int direction) {
+        int cur_pos = getCurPos();
+        int new_pos = cur_pos + direction;
+
+        if ((cur_pos != -999) && ((new_pos) >= 0) && (new_pos <= COL-1)){
+            panel_IMG_player[cur_pos].setVisibility(View.INVISIBLE);
+            panel_IMG_player[new_pos].setVisibility(View.VISIBLE);
+        }
+    }
+
+    private int getCurPos() {
+        for(int i = 0; i < panel_IMG_player.length; i++) {
+            if(panel_IMG_player[i].getVisibility() == View.VISIBLE)
+                return i;
+        }
+        return -999;
+    }
+
 
     private void findViews() {
         panel_BTN_button1 = findViewById(R.id.panel_BTN_button1);
