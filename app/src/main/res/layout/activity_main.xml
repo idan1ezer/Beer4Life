@@ -9,6 +9,53 @@
     android:orientation="vertical">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:background="@drawable/img_draft_bg">
+
+        <ImageView
+            android:id="@+id/panel_IMG_heart1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_full_heart" />
+
+        <ImageView
+            android:id="@+id/panel_IMG_heart2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@id/panel_IMG_heart1"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/panel_IMG_heart1"
+            android:src="@drawable/ic_full_heart" />
+
+        <ImageView
+            android:id="@+id/panel_IMG_heart3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@id/panel_IMG_heart1"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/panel_IMG_heart2"
+            android:src="@drawable/ic_full_heart" />
+
+        <TextView
+            android:id="@+id/panel_LBL_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"
+            android:text="0000"
+            android:textColor="#59BC35"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+
+
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/layout_table"
@@ -18,10 +65,13 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
+
+
+
         <LinearLayout
             android:id="@+id/layout_row_1"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/bar_table_laned"
             android:layout_weight="1">
@@ -32,7 +82,7 @@
                 android:layout_height="0dp"
                 android:visibility="visible"
                 android:layout_weight="1"
-                android:src="@drawable/icon_beer">
+                android:src="@drawable/ic_beer">
             </ImageView>
 
             <ImageView
@@ -41,7 +91,7 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 android:layout_weight="1"
-                android:src="@drawable/icon_beer">
+                android:src="@drawable/ic_beer">
             </ImageView>
 
             <ImageView
@@ -50,7 +100,25 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 android:layout_weight="1"
-                android:src="@drawable/icon_beer">
+                android:src="@drawable/ic_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/panel_IMG_row1_beer4"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/ic_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/panel_IMG_row1_beer5"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/ic_beer">
             </ImageView>
 
             <ImageView
@@ -59,7 +127,7 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 android:layout_weight="1"
-                android:src="@drawable/player">
+                android:src="@drawable/ic_player">
             </ImageView>
 
         </LinearLayout>
@@ -80,7 +148,7 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 android:layout_weight="1"
-                android:src="@drawable/icon_beer">
+                android:src="@drawable/ic_beer">
             </ImageView>
 
             <ImageView
@@ -89,7 +157,7 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 android:layout_weight="1"
-                android:src="@drawable/icon_beer">
+                android:src="@drawable/ic_beer">
             </ImageView>
 
             <ImageView
@@ -98,7 +166,25 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 android:layout_weight="1"
-                android:src="@drawable/icon_beer">
+                android:src="@drawable/ic_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/panel_IMG_row2_beer4"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/ic_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/panel_IMG_row2_beer5"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/ic_beer">
             </ImageView>
 
             <ImageView
@@ -106,7 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/player">
+                android:src="@drawable/ic_player">
             </ImageView>
 
         </LinearLayout>
@@ -125,19 +211,17 @@
                 android:id="@+id/panel_IMG_row3_beer1"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                android:src="@drawable/icon_beer">
-            </ImageView>
+                android:src="@drawable/ic_beer"
+                android:visibility="invisible"></ImageView>
 
             <ImageView
                 android:id="@+id/panel_IMG_row3_beer2"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                android:src="@drawable/icon_beer">
-            </ImageView>
+                android:src="@drawable/ic_beer"
+                android:visibility="invisible"></ImageView>
 
             <ImageView
                 android:id="@+id/panel_IMG_row3_beer3"
@@ -145,7 +229,25 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 android:layout_weight="1"
-                android:src="@drawable/icon_beer">
+                android:src="@drawable/ic_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/panel_IMG_row3_beer4"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/ic_beer">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/panel_IMG_row3_beer5"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:src="@drawable/ic_beer">
             </ImageView>
 
             <ImageView
@@ -154,7 +256,7 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 android:layout_weight="1"
-                android:src="@drawable/player">
+                android:src="@drawable/ic_player">
             </ImageView>
 
         </LinearLayout>
@@ -168,21 +270,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/panel_BTN_button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="10dp"
-            />
+            android:layout_weight="1"
+            android:src="@drawable/ic_left_arrow"
+            android:background="#000000"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/panel_BTN_button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="10dp"
-            />
+            android:layout_weight="1"
+            android:src="@drawable/ic_right_arrow"
+            android:background="#000000"/>
     </LinearLayout>
 
 
