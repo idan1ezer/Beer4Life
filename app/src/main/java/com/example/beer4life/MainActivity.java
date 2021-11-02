@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,13 +31,14 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton panel_BTN_button1;
     private ImageButton panel_BTN_button2;
     private ImageView[] panel_IMG_player;
-    private ImageView[][] panel_IMG_beers;
+    //private ImageView[][] panel_IMG_beers;
+    private Drink[][] panel_Drink;
     private Heart[] panel_IMG_hearts;
     private TextView panel_LBL_score;
+    private int[] waterBeerChances = {1,1,0,1,1,0,1,0,1,1};
     private int lives = MAX_LIVES;
     private int score = 0;
     private int addBeerIndex = 0;
-
 
 
     final Handler handler = new Handler();
@@ -129,13 +131,22 @@ public class MainActivity extends AppCompatActivity {
     // NEED TO UNDERSTAND WHY GAME OVER NOT DETECTED
 
     private void updateBeersPos() {
-        for (int c=0; c < COL; c++){
-            for (int r = 0; r < ROW; r++){
-                if (panel_IMG_beers[r][c].getVisibility() == View.VISIBLE){
-                    panel_IMG_beers[r][c].setVisibility(View.INVISIBLE);
+        for (int c=0; c < COL; c++) {
+            for (int r = 0; r < ROW; r++) {
+                if (panel_Drink[r][c].getImg().getVisibility() == View.VISIBLE){
+                    panel_Drink[r][c].getImg().setVisibility(View.INVISIBLE);
                     r++;
-                    if (r < ROW)
-                        panel_IMG_beers[r][c].setVisibility(View.VISIBLE);
+                    if (r < ROW) {
+                        if(panel_Drink[r-1][c].isBeer()) {
+                            panel_Drink[r][c].getImg().setImageResource(R.drawable.ic_beer);
+                            panel_Drink[r][c].setBeer(true);
+                        }
+                        else {
+                            panel_Drink[r][c].getImg().setImageResource(R.drawable.ic_water_bottle);
+                            panel_Drink[r][c].setBeer(false);
+                        }
+                        panel_Drink[r][c].getImg().setVisibility(View.VISIBLE);
+                    }
                 }
             }
         }
@@ -143,8 +154,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkDisqualification() {
         int cur_pos = getCurPos();
-        if (panel_IMG_beers[ROW-1][cur_pos].getVisibility() == View.VISIBLE){
-            panel_IMG_hearts[lives-1].setRes(R.drawable.ic_empty_heart).setFull(false);
+        if ((panel_Drink[ROW-1][cur_pos].getImg().getVisibility() == View.VISIBLE) && (panel_Drink[ROW-1][cur_pos].isBeer() == true)) {
+            panel_IMG_hearts[lives-1].getImg().setImageResource(R.drawable.ic_empty_heart);
+            panel_IMG_hearts[lives-1].setFull(false);
             lives--;
 
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -164,21 +176,36 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void addRandomBeer() {
+        Random r = new Random();
+
         if(addBeerIndex % 2 == 1) {
-            Random r = new Random();
             int index = r.nextInt(3);
-            panel_IMG_beers[0][index].setVisibility(View.VISIBLE);
+            int num = r.nextInt(waterBeerChances.length);
+            if (waterBeerChances[num] == 1) {
+                panel_Drink[0][index].getImg().setImageResource(R.drawable.ic_beer);
+                panel_Drink[0][index].getImg().setVisibility(View.VISIBLE);
+                panel_Drink[0][index].setBeer(true);
+            }
+            else {
+                panel_Drink[0][index].getImg().setImageResource(R.drawable.ic_water_bottle);
+                panel_Drink[0][index].getImg().setVisibility(View.VISIBLE);
+                panel_Drink[0][index].setBeer(false);
+            }
         }
         addBeerIndex++;
     }
 
+
     private void updateScore() {
         for (int column=0; column<COL-1; column++){
-            if (panel_IMG_beers[ROW-1][column] != panel_IMG_player[column])
+            if ((panel_Drink[ROW-1][column].getImg().getVisibility() == View.VISIBLE) && (panel_IMG_player[column].getVisibility() == View.INVISIBLE) && (panel_Drink[ROW-1][column].isBeer() == true))
                 score+=50;
+            if ((panel_Drink[ROW-1][column].getImg().getVisibility() == View.VISIBLE) && (panel_IMG_player[column].getVisibility() == View.VISIBLE) && (panel_Drink[ROW-1][column].isBeer() == false))
+                score+=200;
         }
         panel_LBL_score.setText("" + score);
     }
+
 
 
 
@@ -196,42 +223,41 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.panel_IMG_player3)
         };
 
-        panel_IMG_beers = new ImageView[][] {
+        panel_Drink = new Drink[][] {
                 {
-                        findViewById(R.id.panel_IMG_row1_beer1),
-                        findViewById(R.id.panel_IMG_row1_beer2),
-                        findViewById(R.id.panel_IMG_row1_beer3)
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row1_beer1)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row1_beer2)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row1_beer3)).setBeer(true)
                 },
                 {
-                        findViewById(R.id.panel_IMG_row2_beer1),
-                        findViewById(R.id.panel_IMG_row2_beer2),
-                        findViewById(R.id.panel_IMG_row2_beer3)
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row2_beer1)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row2_beer2)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row2_beer3)).setBeer(true)
                 },
                 {
-                        findViewById(R.id.panel_IMG_row3_beer1),
-                        findViewById(R.id.panel_IMG_row3_beer2),
-                        findViewById(R.id.panel_IMG_row3_beer3)
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row3_beer1)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row3_beer2)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row3_beer3)).setBeer(true)
                 },
                 {
-                        findViewById(R.id.panel_IMG_row4_beer1),
-                        findViewById(R.id.panel_IMG_row4_beer2),
-                        findViewById(R.id.panel_IMG_row4_beer3)
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row4_beer1)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row4_beer2)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row4_beer3)).setBeer(true)
                 },
                 {
-                        findViewById(R.id.panel_IMG_row5_beer1),
-                        findViewById(R.id.panel_IMG_row5_beer2),
-                        findViewById(R.id.panel_IMG_row5_beer3)
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row5_beer1)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row5_beer2)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row5_beer3)).setBeer(true)
                 }
         };
 
         panel_LBL_score = findViewById(R.id.panel_LBL_score);
 
         panel_IMG_hearts = new Heart[]{
-                new Heart().setRes(R.drawable.ic_full_heart).setFull(true),
-                new Heart().setRes(R.drawable.ic_full_heart).setFull(true),
-                new Heart().setRes(R.drawable.ic_full_heart).setFull(true)
+                new Heart().setImg(findViewById(R.id.panel_IMG_heart1)).setFull(true),
+                new Heart().setImg(findViewById(R.id.panel_IMG_heart2)).setFull(true),
+                new Heart().setImg(findViewById(R.id.panel_IMG_heart3)).setFull(true)
         };
-
 
     }
 }

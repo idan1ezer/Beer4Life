@@ -2,27 +2,27 @@ package com.example.beer4life;
 
 import android.widget.ImageView;
 
-public class Heart {
+public class Drink {
     private ImageView img;
-    private boolean isFull = true;
+    private boolean isBeer = true;
 
-    public Heart(){ }
+    public Drink() { }
 
     public ImageView getImg() {
         return img;
     }
 
-    public Heart setImg(ImageView img) {
+    public Drink setImg(ImageView img) {
         this.img = img;
         return this;
     }
 
-    public boolean isFull() {
-        return isFull;
+    public boolean isBeer() {
+        return isBeer;
     }
 
-    public Heart setFull(boolean full) {
-        isFull = full;
+    public Drink setBeer(boolean beer) {
+        isBeer = beer;
         return this;
     }
 }
