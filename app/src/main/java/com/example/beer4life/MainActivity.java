@@ -3,42 +3,47 @@ package com.example.beer4life;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.transition.MaterialSharedAxis;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     final int COL = 3;
     final int ROW = 5;
-    final int DELAY = 500;
+    final int DELAY = 700;
     final int MAX_LIVES = 3;
 
 
-    private Button panel_BTN_button1;
-    private Button panel_BTN_button2;
+    private ImageButton panel_BTN_button1;
+    private ImageButton panel_BTN_button2;
     private ImageView[] panel_IMG_player;
     private ImageView[][] panel_IMG_beers;
     private Heart[] panel_IMG_hearts;
     private TextView panel_LBL_score;
     private int lives = MAX_LIVES;
     private int score = 0;
+    private int addBeerIndex = 0;
 
 
 
     final Handler handler = new Handler();
     private Runnable r = new Runnable() {
         public void run() {
-            updateBeersPos();
             checkDisqualification();
+            updateBeersPos();
             updateScore();
             addRandomBeer();
             handler.postDelayed(r, DELAY);
@@ -124,12 +129,12 @@ public class MainActivity extends AppCompatActivity {
     // NEED TO UNDERSTAND WHY GAME OVER NOT DETECTED
 
     private void updateBeersPos() {
-        for (int r=0; r < ROW; r++){
-            for (int c = 0; c < COL; c++){
+        for (int c=0; c < COL; c++){
+            for (int r = 0; r < ROW; r++){
                 if (panel_IMG_beers[r][c].getVisibility() == View.VISIBLE){
                     panel_IMG_beers[r][c].setVisibility(View.INVISIBLE);
-                    c++;
-                    if (c < COL)
+                    r++;
+                    if (r < ROW)
                         panel_IMG_beers[r][c].setVisibility(View.VISIBLE);
                 }
             }
@@ -141,16 +146,30 @@ public class MainActivity extends AppCompatActivity {
         if (panel_IMG_beers[ROW-1][cur_pos].getVisibility() == View.VISIBLE){
             panel_IMG_hearts[lives-1].setRes(R.drawable.ic_empty_heart).setFull(false);
             lives--;
+
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                v.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                v.vibrate(300);
+            }
         }
-        if (lives == 0)
-            Toast.makeText(this, "Game Over!", Toast.LENGTH_SHORT).show();
+
+        if (lives == 0) {
+            Toast.makeText(this, "Game Over!", Toast.LENGTH_LONG).show();
+            SystemClock.sleep(3000);
+            System.exit(0);
+        }
     }
 
 
     private void addRandomBeer() {
-        Random r = new Random();
-        int index = r.nextInt(3);
-        panel_IMG_beers[index][0].setVisibility(View.VISIBLE);
+        if(addBeerIndex % 2 == 1) {
+            Random r = new Random();
+            int index = r.nextInt(3);
+            panel_IMG_beers[0][index].setVisibility(View.VISIBLE);
+        }
+        addBeerIndex++;
     }
 
     private void updateScore() {
@@ -172,32 +191,36 @@ public class MainActivity extends AppCompatActivity {
         panel_BTN_button2 = findViewById(R.id.panel_BTN_button2);
 
         panel_IMG_player = new ImageView[]{
-                findViewById(R.id.panel_IMG_row1_player),
-                findViewById(R.id.panel_IMG_row2_player),
-                findViewById(R.id.panel_IMG_row3_player)
+                findViewById(R.id.panel_IMG_player1),
+                findViewById(R.id.panel_IMG_player2),
+                findViewById(R.id.panel_IMG_player3)
         };
 
         panel_IMG_beers = new ImageView[][] {
                 {
                         findViewById(R.id.panel_IMG_row1_beer1),
                         findViewById(R.id.panel_IMG_row1_beer2),
-                        findViewById(R.id.panel_IMG_row1_beer3),
-                        findViewById(R.id.panel_IMG_row1_beer4),
-                        findViewById(R.id.panel_IMG_row1_beer5)
+                        findViewById(R.id.panel_IMG_row1_beer3)
                 },
                 {
                         findViewById(R.id.panel_IMG_row2_beer1),
                         findViewById(R.id.panel_IMG_row2_beer2),
-                        findViewById(R.id.panel_IMG_row2_beer3),
-                        findViewById(R.id.panel_IMG_row2_beer4),
-                        findViewById(R.id.panel_IMG_row2_beer5)
+                        findViewById(R.id.panel_IMG_row2_beer3)
                 },
                 {
                         findViewById(R.id.panel_IMG_row3_beer1),
                         findViewById(R.id.panel_IMG_row3_beer2),
-                        findViewById(R.id.panel_IMG_row3_beer3),
-                        findViewById(R.id.panel_IMG_row3_beer4),
-                        findViewById(R.id.panel_IMG_row3_beer5)
+                        findViewById(R.id.panel_IMG_row3_beer3)
+                },
+                {
+                        findViewById(R.id.panel_IMG_row4_beer1),
+                        findViewById(R.id.panel_IMG_row4_beer2),
+                        findViewById(R.id.panel_IMG_row4_beer3)
+                },
+                {
+                        findViewById(R.id.panel_IMG_row5_beer1),
+                        findViewById(R.id.panel_IMG_row5_beer2),
+                        findViewById(R.id.panel_IMG_row5_beer3)
                 }
         };
 
