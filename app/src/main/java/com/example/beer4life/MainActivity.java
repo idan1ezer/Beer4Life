@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,11 +28,9 @@ public class MainActivity extends AppCompatActivity {
     final int DELAY = 700;
     final int MAX_LIVES = 3;
 
-
     private ImageButton panel_BTN_button1;
     private ImageButton panel_BTN_button2;
     private ImageView[] panel_IMG_player;
-    //private ImageView[][] panel_IMG_beers;
     private Drink[][] panel_Drink;
     private Heart[] panel_IMG_hearts;
     private TextView panel_LBL_score;
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private int lives = MAX_LIVES;
     private int score = 0;
     private int addBeerIndex = 0;
+
 
 
     final Handler handler = new Handler();
@@ -58,11 +58,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        startService(new Intent(this, MyService.class));
         findViews();
-
-
-
 
         panel_BTN_button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,17 +67,12 @@ public class MainActivity extends AppCompatActivity {
                 move(-1);
             }
         });
-
         panel_BTN_button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 move(1);
             }
         });
-
-
-
-
     }
 
     @Override
@@ -102,11 +94,6 @@ public class MainActivity extends AppCompatActivity {
     private void stopTicker() {
         handler.removeCallbacks(r);
     }
-
-
-
-
-
 
 
     private void move(int direction) {
@@ -205,10 +192,6 @@ public class MainActivity extends AppCompatActivity {
         }
         panel_LBL_score.setText("" + score);
     }
-
-
-
-
 
 
 
