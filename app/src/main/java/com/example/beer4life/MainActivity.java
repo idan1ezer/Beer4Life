@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        stopService(new Intent(this, MyService.class));
         stopTicker();
     }
 
