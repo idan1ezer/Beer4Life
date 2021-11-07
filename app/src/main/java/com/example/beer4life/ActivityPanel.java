@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,11 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.transition.MaterialSharedAxis;
-
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityPanel extends AppCompatActivity {
     final int COL = 3;
     final int ROW = 5;
     final int DELAY = 700;
@@ -57,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_panel);
         startService(new Intent(this, MyService.class));
         findViews();
 

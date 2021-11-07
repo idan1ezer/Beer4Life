@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Beer4Life">
         <activity
-            android:name=".MainActivity"
+            android:name=".ActivityPanel"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
