@@ -1,4 +1,4 @@
-package com.example.beer4life;
+package com.example.beer4life.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,9 +17,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.beer4life.Drink;
+import com.example.beer4life.Heart;
+import com.example.beer4life.MyService;
+import com.example.beer4life.R;
+
 import java.util.Random;
 
-public class ActivityPanel extends AppCompatActivity {
+public class ActivityGame123 extends AppCompatActivity {
     final int COL = 3;
     final int ROW = 5;
     final int DELAY = 700;
@@ -54,7 +59,7 @@ public class ActivityPanel extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_panel);
+        setContentView(R.layout.activity_game123);
         startService(new Intent(this, MyService.class));
         findViews();
 
@@ -152,11 +157,16 @@ public class ActivityPanel extends AppCompatActivity {
             }
         }
 
-        if (lives == 0) {
-            Toast.makeText(this, "Game Over!", Toast.LENGTH_LONG).show();
-            SystemClock.sleep(3000);
-            System.exit(0);
-        }
+        if (lives == 0)
+            gameOver();
+    }
+
+    private void gameOver() {
+        Toast.makeText(this, "Game Over!", Toast.LENGTH_LONG).show();
+        SystemClock.sleep(1000);
+
+        Intent intent = new Intent(this, ActivityGameOver.class);
+        startActivity(intent);
     }
 
 

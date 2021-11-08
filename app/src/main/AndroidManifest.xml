@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.beer4life">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,19 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Beer4Life">
         <activity
-            android:name=".ActivityPanel"
+            android:name=".activities.ActivityStart"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ActivityGameOver"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ActivityGame123"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <service android:name=".MyService"/>
-    </application>
 
-    <uses-permission android:name="android.permission.VIBRATE"/>
+        <service android:name=".MyService" />
+    </application>
 
 </manifest>
