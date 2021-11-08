@@ -2,14 +2,27 @@ package com.example.beer4life.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.beer4life.Drink;
+import com.example.beer4life.Heart;
+import com.example.beer4life.MyService;
 import com.example.beer4life.R;
+
+import java.util.Random;
 
 public class ActivityStart extends AppCompatActivity {
     private ImageView panel_IMG_drunk_game;
@@ -34,7 +47,7 @@ public class ActivityStart extends AppCompatActivity {
 
 
     private void start() {
-        Intent intent = new Intent(this, ActivityGame123.class);
+        Intent intent = new Intent(this, ActivityGame.class);
         startActivity(intent);
     }
 

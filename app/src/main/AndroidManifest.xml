@@ -12,13 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Beer4Life">
         <activity
-            android:name=".activities.ActivityStart"
+            android:name=".activities.ActivityGame"
             android:exported="false" />
         <activity
             android:name=".activities.ActivityGameOver"
             android:exported="false" />
         <activity
-            android:name=".activities.ActivityGame123"
+            android:name=".activities.ActivityStart"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

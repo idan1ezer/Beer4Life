@@ -48,7 +48,7 @@ public class ActivityGameOver extends AppCompatActivity {
     }
 
     private void retry() {
-        Intent intent = new Intent(this, ActivityGame123.class);
+        Intent intent = new Intent(this, ActivityGame.class);
         startActivity(intent);
     }
 

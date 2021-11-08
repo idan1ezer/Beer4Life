@@ -1,30 +1,30 @@
 package com.example.beer4life.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.annotation.SuppressLint;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.os.Build;
+        import android.os.Bundle;
+        import android.os.Handler;
+        import android.os.SystemClock;
+        import android.os.VibrationEffect;
+        import android.os.Vibrator;
+        import android.view.View;
+        import android.widget.ImageButton;
+        import android.widget.ImageView;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.example.beer4life.Drink;
-import com.example.beer4life.Heart;
-import com.example.beer4life.MyService;
-import com.example.beer4life.R;
+        import com.example.beer4life.Drink;
+        import com.example.beer4life.Heart;
+        import com.example.beer4life.MyService;
+        import com.example.beer4life.R;
 
-import java.util.Random;
+        import java.util.Random;
 
-public class ActivityGame123 extends AppCompatActivity {
+public class ActivityGame extends AppCompatActivity {
     final int COL = 3;
     final int ROW = 5;
     final int DELAY = 700;
@@ -59,7 +59,7 @@ public class ActivityGame123 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game123);
+        setContentView(R.layout.activity_game);
         startService(new Intent(this, MyService.class));
         findViews();
 
