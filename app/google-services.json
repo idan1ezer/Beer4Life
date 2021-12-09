@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "383792316256",
+    "project_id": "beer4life-18ad1",
+    "storage_bucket": "beer4life-18ad1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383792316256:android:f1004023d4d7433bf4e805",
+        "android_client_info": {
+          "package_name": "com.azarim.beer4life"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "383792316256-0d71jsdg56ps844sdr82pmbngpgfnt6t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8UZ4IB0q03K_dV2oNGbvnU4rPa-v9R9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "383792316256-0d71jsdg56ps844sdr82pmbngpgfnt6t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

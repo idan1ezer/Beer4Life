@@ -27,8 +27,9 @@ package com.example.beer4life.activities;
 public class ActivityGame extends AppCompatActivity {
     final int COL = 3;
     final int ROW = 5;
-    final int DELAY = 700;
     final int MAX_LIVES = 3;
+
+    private int delay = 700;
 
     private ImageButton panel_BTN_button1;
     private ImageButton panel_BTN_button2;
@@ -50,7 +51,7 @@ public class ActivityGame extends AppCompatActivity {
             updateBeersPos();
             updateScore();
             addRandomBeer();
-            handler.postDelayed(r, DELAY);
+            handler.postDelayed(r, delay);
         }
     };
 
@@ -62,6 +63,17 @@ public class ActivityGame extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         startService(new Intent(this, MyService.class));
         findViews();
+
+        /*
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            setGameSpeed(extras.getString("dif"));
+            //setGameType(extras.getString("sen"));
+        }
+
+         */
+
+
 
         panel_BTN_button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +87,13 @@ public class ActivityGame extends AppCompatActivity {
                 move(1);
             }
         });
+    }
+
+    private void setGameSpeed(String dif) {
+        if (Integer.parseInt(dif) == 0)
+            delay = 700;
+        else
+            delay = 1100;
     }
 
     @Override
@@ -91,7 +110,7 @@ public class ActivityGame extends AppCompatActivity {
     }
 
     private void startTicker() {
-        handler.postDelayed(r, DELAY);
+        handler.postDelayed(r, delay);
     }
 
     private void stopTicker() {
