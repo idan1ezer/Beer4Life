@@ -70,6 +70,7 @@ public class ActivityStart extends AppCompatActivity {
 
 
     private void start() {
+        finish();
         Intent intent = new Intent(this, ActivityGame.class);
         intent.putExtra("dif", dif);
         intent.putExtra("sen", sen);

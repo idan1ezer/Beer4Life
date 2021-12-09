@@ -5,6 +5,10 @@ package com.example.beer4life.activities;
         import android.annotation.SuppressLint;
         import android.content.Context;
         import android.content.Intent;
+        import android.hardware.Sensor;
+        import android.hardware.SensorEvent;
+        import android.hardware.SensorEventListener;
+        import android.hardware.SensorManager;
         import android.os.Build;
         import android.os.Bundle;
         import android.os.Handler;
@@ -22,6 +26,7 @@ package com.example.beer4life.activities;
         import com.example.beer4life.MyService;
         import com.example.beer4life.R;
 
+        import java.text.DecimalFormat;
         import java.util.Random;
 
 public class ActivityGame extends AppCompatActivity {
@@ -29,7 +34,7 @@ public class ActivityGame extends AppCompatActivity {
     final int ROW = 5;
     final int MAX_LIVES = 3;
 
-    private int delay = 700;
+    private int delay = 1000;
 
     private ImageButton panel_BTN_button1;
     private ImageButton panel_BTN_button2;
@@ -41,6 +46,11 @@ public class ActivityGame extends AppCompatActivity {
     private int lives = MAX_LIVES;
     private int score = 0;
     private int addBeerIndex = 0;
+
+    private SensorManager sensorManager;
+    private Sensor accSensor;
+
+    private boolean sens = false;
 
 
 
@@ -64,14 +74,14 @@ public class ActivityGame extends AppCompatActivity {
         startService(new Intent(this, MyService.class));
         findViews();
 
-        /*
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            setGameSpeed(extras.getString("dif"));
-            //setGameType(extras.getString("sen"));
+            setGameSpeed(extras.getInt("dif"));
+            setGameType(extras.getBoolean("sen"));
         }
 
-         */
+
 
 
 
@@ -89,11 +99,21 @@ public class ActivityGame extends AppCompatActivity {
         });
     }
 
-    private void setGameSpeed(String dif) {
-        if (Integer.parseInt(dif) == 0)
-            delay = 700;
+
+    private void setGameSpeed(int dif) {
+        if (dif == 0)
+            delay = 1000;
         else
-            delay = 1100;
+            delay = 600;
+    }
+
+    private void setGameType(boolean sen) {
+        if (sen) {
+            sens = true;
+            initSensors();
+        }
+        else
+            sens = false;
     }
 
     @Override
@@ -219,6 +239,65 @@ public class ActivityGame extends AppCompatActivity {
         }
         panel_LBL_score.setText("" + score);
     }
+
+
+
+
+
+
+
+
+
+
+    private void initSensors() {
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        panel_BTN_button1.setVisibility(View.INVISIBLE);
+        panel_BTN_button2.setVisibility(View.INVISIBLE);
+    }
+
+    private final SensorEventListener accSensorEventListener = new SensorEventListener() {
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            DecimalFormat df = new DecimalFormat("##.##");
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+            if( x > 1.5)
+                move(-1);
+            if(x < -1.5)
+                move(1);
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int i) {
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(sens)
+            sensorManager.registerListener(accSensorEventListener, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(sens)
+            sensorManager.unregisterListener(accSensorEventListener);
+    }
+
+
+
+
+
+
+
+
+
 
 
 
