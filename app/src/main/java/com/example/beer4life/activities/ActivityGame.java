@@ -30,8 +30,8 @@ package com.example.beer4life.activities;
         import java.util.Random;
 
 public class ActivityGame extends AppCompatActivity {
-    final int COL = 3;
-    final int ROW = 5;
+    final int COL = 5;
+    final int ROW = 7;
     final int MAX_LIVES = 3;
 
     private int delay = 1000;
@@ -213,7 +213,7 @@ public class ActivityGame extends AppCompatActivity {
         Random r = new Random();
 
         if(addBeerIndex % 2 == 1) {
-            int index = r.nextInt(3);
+            int index = r.nextInt(COL);
             int num = r.nextInt(waterBeerChances.length);
             if (waterBeerChances[num] == 1) {
                 panel_Drink[0][index].getImg().setImageResource(R.drawable.ic_beer);
@@ -309,34 +309,60 @@ public class ActivityGame extends AppCompatActivity {
         panel_IMG_player = new ImageView[]{
                 findViewById(R.id.panel_IMG_player1),
                 findViewById(R.id.panel_IMG_player2),
-                findViewById(R.id.panel_IMG_player3)
+                findViewById(R.id.panel_IMG_player3),
+                findViewById(R.id.panel_IMG_player4),
+                findViewById(R.id.panel_IMG_player5)
         };
 
         panel_Drink = new Drink[][] {
                 {
                         new Drink().setImg(findViewById(R.id.panel_IMG_row1_beer1)).setBeer(true),
                         new Drink().setImg(findViewById(R.id.panel_IMG_row1_beer2)).setBeer(true),
-                        new Drink().setImg(findViewById(R.id.panel_IMG_row1_beer3)).setBeer(true)
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row1_beer3)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row1_beer4)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row1_beer5)).setBeer(true)
                 },
                 {
                         new Drink().setImg(findViewById(R.id.panel_IMG_row2_beer1)).setBeer(true),
                         new Drink().setImg(findViewById(R.id.panel_IMG_row2_beer2)).setBeer(true),
-                        new Drink().setImg(findViewById(R.id.panel_IMG_row2_beer3)).setBeer(true)
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row2_beer3)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row2_beer4)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row2_beer5)).setBeer(true)
                 },
                 {
                         new Drink().setImg(findViewById(R.id.panel_IMG_row3_beer1)).setBeer(true),
                         new Drink().setImg(findViewById(R.id.panel_IMG_row3_beer2)).setBeer(true),
-                        new Drink().setImg(findViewById(R.id.panel_IMG_row3_beer3)).setBeer(true)
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row3_beer3)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row3_beer4)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row3_beer5)).setBeer(true)
                 },
                 {
                         new Drink().setImg(findViewById(R.id.panel_IMG_row4_beer1)).setBeer(true),
                         new Drink().setImg(findViewById(R.id.panel_IMG_row4_beer2)).setBeer(true),
-                        new Drink().setImg(findViewById(R.id.panel_IMG_row4_beer3)).setBeer(true)
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row4_beer3)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row4_beer4)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row4_beer5)).setBeer(true)
                 },
                 {
                         new Drink().setImg(findViewById(R.id.panel_IMG_row5_beer1)).setBeer(true),
                         new Drink().setImg(findViewById(R.id.panel_IMG_row5_beer2)).setBeer(true),
-                        new Drink().setImg(findViewById(R.id.panel_IMG_row5_beer3)).setBeer(true)
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row5_beer3)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row5_beer4)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row5_beer5)).setBeer(true)
+                },
+                {
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row6_beer1)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row6_beer2)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row6_beer3)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row6_beer4)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row6_beer5)).setBeer(true)
+                },
+                {
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row7_beer1)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row7_beer2)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row7_beer3)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row7_beer4)).setBeer(true),
+                        new Drink().setImg(findViewById(R.id.panel_IMG_row7_beer5)).setBeer(true)
                 }
         };
 
