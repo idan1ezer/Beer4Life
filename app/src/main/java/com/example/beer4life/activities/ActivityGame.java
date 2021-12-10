@@ -1,38 +1,50 @@
 package com.example.beer4life.activities;
 
-        import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import android.Manifest;
 
-        import android.annotation.SuppressLint;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.hardware.Sensor;
-        import android.hardware.SensorEvent;
-        import android.hardware.SensorEventListener;
-        import android.hardware.SensorManager;
-        import android.os.Build;
-        import android.os.Bundle;
-        import android.os.Handler;
-        import android.os.SystemClock;
-        import android.os.VibrationEffect;
-        import android.os.Vibrator;
-        import android.view.View;
-        import android.widget.ImageButton;
-        import android.widget.ImageView;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.example.beer4life.Drink;
-        import com.example.beer4life.Heart;
-        import com.example.beer4life.MyService;
-        import com.example.beer4life.R;
+import com.example.beer4life.generalObjects.Drink;
+import com.example.beer4life.generalObjects.Heart;
+import com.example.beer4life.MyService;
+import com.example.beer4life.R;
 
-        import java.text.DecimalFormat;
-        import java.util.Random;
+import java.text.DecimalFormat;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
-public class ActivityGame extends AppCompatActivity {
-    final int COL = 5;
-    final int ROW = 7;
-    final int MAX_LIVES = 3;
+public class ActivityGame extends AppCompatActivity implements LocationListener{
+    private final int COL = 5;
+    private final int ROW = 7;
+    private final int MAX_LIVES = 3;
+    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
 
     private int delay = 1000;
 
@@ -49,9 +61,11 @@ public class ActivityGame extends AppCompatActivity {
 
     private SensorManager sensorManager;
     private Sensor accSensor;
-
     private boolean sens = false;
 
+    private LocationManager locationManager;
+    private double lat;
+    private double lon;
 
 
     final Handler handler = new Handler();
@@ -66,14 +80,14 @@ public class ActivityGame extends AppCompatActivity {
     };
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         startService(new Intent(this, MyService.class));
         findViews();
-
+        initBTNs();
+        checkLocationPermission();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -81,10 +95,71 @@ public class ActivityGame extends AppCompatActivity {
             setGameType(extras.getBoolean("sen"));
         }
 
+    }
+
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(ActivityGame.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(ActivityGame.this,new String[] {
+                    Manifest.permission.ACCESS_FINE_LOCATION }, 100);
+        }
+
+        getLocation();
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+        try {
+            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,5, (LocationListener) ActivityGame.this);
+
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            lat = location.getLatitude();
+            lon = location.getLongitude();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        //Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
+        try {
+            Geocoder geocoder = new Geocoder(ActivityGame.this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+            String address = addresses.get(0).getAddressLine(0);
+
+            lat = location.getLatitude();
+            lon = location.getLongitude();
 
 
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+    }
+
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+
+    private void initBTNs() {
         panel_BTN_button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +173,6 @@ public class ActivityGame extends AppCompatActivity {
             }
         });
     }
-
 
     private void setGameSpeed(int dif) {
         if (dif == 0)
@@ -137,7 +211,6 @@ public class ActivityGame extends AppCompatActivity {
         handler.removeCallbacks(r);
     }
 
-
     private void move(int direction) {
         int cur_pos = getCurPos();
         int new_pos = cur_pos + direction;
@@ -155,9 +228,6 @@ public class ActivityGame extends AppCompatActivity {
         }
         return -999;
     }
-
-
-    // NEED TO UNDERSTAND WHY GAME OVER NOT DETECTED
 
     private void updateBeersPos() {
         for (int c=0; c < COL; c++) {
@@ -204,10 +274,13 @@ public class ActivityGame extends AppCompatActivity {
         Toast.makeText(this, "Game Over!", Toast.LENGTH_LONG).show();
         SystemClock.sleep(1000);
 
+        finish();
         Intent intent = new Intent(this, ActivityGameOver.class);
+        intent.putExtra("score", score);
+        intent.putExtra("lat", lat);
+        intent.putExtra("lon", lon);
         startActivity(intent);
     }
-
 
     private void addRandomBeer() {
         Random r = new Random();
@@ -229,7 +302,6 @@ public class ActivityGame extends AppCompatActivity {
         addBeerIndex++;
     }
 
-
     private void updateScore() {
         for (int column=0; column<COL-1; column++){
             if ((panel_Drink[ROW-1][column].getImg().getVisibility() == View.VISIBLE) && (panel_IMG_player[column].getVisibility() == View.INVISIBLE) && (panel_Drink[ROW-1][column].isBeer() == true))
@@ -239,15 +311,6 @@ public class ActivityGame extends AppCompatActivity {
         }
         panel_LBL_score.setText("" + score);
     }
-
-
-
-
-
-
-
-
-
 
     private void initSensors() {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -289,14 +352,6 @@ public class ActivityGame extends AppCompatActivity {
         if(sens)
             sensorManager.unregisterListener(accSensorEventListener);
     }
-
-
-
-
-
-
-
-
 
 
 

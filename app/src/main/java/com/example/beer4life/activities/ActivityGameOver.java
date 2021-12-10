@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.beer4life.Heart;
+import com.example.beer4life.generalObjects.Heart;
 import com.example.beer4life.R;
 
 import java.util.Random;
@@ -21,8 +21,12 @@ public class ActivityGameOver extends AppCompatActivity {
     private TextView panel_LBL_quote;
     private ImageButton panel_BTN_retry;
     private ImageButton panel_BTN_quit;
+    private ImageButton panel_BTN_top10;
 
     private String[] quotes;
+    private double lat;
+    private double lon;
+    private int score;
 
 
     @Override
@@ -31,7 +35,18 @@ public class ActivityGameOver extends AppCompatActivity {
         setContentView(R.layout.activity_game_over);
         findViews();
         setQuote();
+        initBTNs();
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            lat = extras.getDouble("lat");
+            lon = extras.getDouble("lon");
+            score = extras.getInt("score");
+        }
+
+    }
+
+    private void initBTNs() {
         panel_BTN_retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,16 +60,34 @@ public class ActivityGameOver extends AppCompatActivity {
                 quit();
             }
         });
+
+        panel_BTN_top10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                top10();
+            }
+        });
     }
 
     private void retry() {
+        finish();
         Intent intent = new Intent(this, ActivityGame.class);
         startActivity(intent);
     }
 
     private void quit() {
+        finish();
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
+
+    private void top10() {
+        finish();
+        Intent intent = new Intent(this, ActivityTop10.class);
+        intent.putExtra("score", score);
+        intent.putExtra("lat", lat);
+        intent.putExtra("lon", lon);
         startActivity(intent);
     }
 
@@ -74,7 +107,6 @@ public class ActivityGameOver extends AppCompatActivity {
         panel_LBL_quote.setText(quotes[index]);
     }
 
-
     private void findViews() {
         panel_LBL_score = findViewById(R.id.panel_LBL_score);
 
@@ -89,5 +121,6 @@ public class ActivityGameOver extends AppCompatActivity {
 
         panel_BTN_retry = findViewById(R.id.panel_BTN_retry);
         panel_BTN_quit = findViewById(R.id.panel_BTN_quit);
+        panel_BTN_top10 = findViewById(R.id.panel_BTN_top10);
     }
 }

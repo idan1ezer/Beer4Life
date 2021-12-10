@@ -1,4 +1,4 @@
-package com.example.beer4life;
+package com.example.beer4life.generalObjects;
 
 import android.widget.ImageView;
 

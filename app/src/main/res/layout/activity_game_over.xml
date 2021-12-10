@@ -107,6 +107,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:src="@drawable/img_quit_red"/>
+
+                <ImageButton
+                    android:id="@+id/panel_BTN_top10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/img_top_10_red"/>
             </LinearLayout>
 
         </RelativeLayout>
