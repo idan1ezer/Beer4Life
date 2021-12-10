@@ -1,4 +1,4 @@
-package com.example.beer4life;
+package com.example.beer4life.generalObjects;
 
 import android.app.Activity;
 import android.app.Service;
@@ -8,6 +8,8 @@ import android.os.IBinder;
 import android.provider.Settings;
 
 import androidx.annotation.Nullable;
+
+import com.example.beer4life.R;
 
 public class MyService extends Service {
     private MediaPlayer mp;

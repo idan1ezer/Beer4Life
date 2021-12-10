@@ -59,7 +59,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCkaOeRuDskjQCeAFs_2Jg-RpCuw8AxtJM" />
 
-        <service android:name=".MyService" />
+        <service android:name=".generalObjects.MyService" />
     </application>
 
 </manifest>

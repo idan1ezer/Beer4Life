@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 import com.example.beer4life.generalObjects.Drink;
 import com.example.beer4life.generalObjects.Heart;
-import com.example.beer4life.MyService;
+import com.example.beer4life.generalObjects.MyService;
 import com.example.beer4life.R;
 
 import java.text.DecimalFormat;
