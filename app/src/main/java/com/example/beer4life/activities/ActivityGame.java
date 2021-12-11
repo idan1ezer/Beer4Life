@@ -52,7 +52,7 @@ import java.util.Random;
 public class ActivityGame extends AppCompatActivity implements LocationListener{
     private final int COL = 5;
     private final int ROW = 7;
-    private final int MAX_LIVES = 1;
+    private final int MAX_LIVES = 3;
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
 
     private int delay = 1000;
