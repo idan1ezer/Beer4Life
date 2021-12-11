@@ -17,6 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
+import android.widget.Toast;
 
 public class ActivityTop10 extends AppCompatActivity {
 
@@ -32,16 +35,15 @@ public class ActivityTop10 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top10);
 
-        initFragmentMap();
-        initFragmentList();
-
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             lat = extras.getDouble("lat");
             lon = extras.getDouble("lon");
             score = extras.getInt("score");
         }
+
+        initFragmentMap();
+        initFragmentList();
     }
 
 

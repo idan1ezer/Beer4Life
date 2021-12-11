@@ -34,6 +34,15 @@ import com.example.beer4life.generalObjects.Drink;
 import com.example.beer4life.generalObjects.Heart;
 import com.example.beer4life.generalObjects.MyService;
 import com.example.beer4life.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -67,6 +76,9 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
     private double lat;
     private double lon;
 
+    //private SupportMapFragment supportMapFragment;
+    private FusedLocationProviderClient client;
+
 
     final Handler handler = new Handler();
     private Runnable r = new Runnable() {
@@ -98,6 +110,9 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
     }
 
     private void checkLocationPermission() {
+        //supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        client = LocationServices.getFusedLocationProviderClient(this);
+
         if (ContextCompat.checkSelfPermission(ActivityGame.this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(ActivityGame.this,new String[] {
@@ -105,6 +120,21 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
         }
 
         getLocation();
+        //getCurrentLocation();
+    }
+
+    @SuppressLint("MissingPermission")
+    public void getCurrentLocation() {
+        Task<Location> task = client.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location != null) {
+                    lat = location.getLatitude();
+                    lon = location.getLongitude();
+                }
+            }
+        });
     }
 
 
@@ -117,6 +147,7 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             lat = location.getLatitude();
             lon = location.getLongitude();
+
 
         }catch (Exception e){
             e.printStackTrace();
@@ -133,7 +164,6 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
 
             lat = location.getLatitude();
             lon = location.getLongitude();
-
 
 
         }catch (Exception e){
@@ -430,4 +460,12 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
         };
 
     }
+
+/*
+
+    public void setCurrentLocation(Object currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
+ */
 }
