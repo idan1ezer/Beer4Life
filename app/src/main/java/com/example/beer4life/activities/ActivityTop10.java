@@ -1,5 +1,6 @@
 package com.example.beer4life.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -9,18 +10,29 @@ import com.example.beer4life.callbacks.CallBack_Map;
 import com.example.beer4life.fragment.FragmentGoogleMaps;
 import com.example.beer4life.fragment.FragmentList;
 import com.example.beer4life.fragment.FragmentSettings;
+import com.example.beer4life.generalObjects.MSP;
+import com.example.beer4life.generalObjects.MyDB;
+import com.example.beer4life.generalObjects.Score;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ActivityTop10 extends AppCompatActivity {
 
     private FragmentList fragmentList;
@@ -29,6 +41,12 @@ public class ActivityTop10 extends AppCompatActivity {
     private double lat;
     private double lon;
     private int score;
+
+
+    private MyDB myDB;
+    //private ArrayList<Score> temp = new ArrayList<>();
+    //private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +58,7 @@ public class ActivityTop10 extends AppCompatActivity {
             lat = extras.getDouble("lat");
             lon = extras.getDouble("lon");
             score = extras.getInt("score");
+            myDB = new Gson().fromJson(extras.getString("db"), MyDB.class);
         }
 
         initFragmentMap();
@@ -65,6 +84,11 @@ public class ActivityTop10 extends AppCompatActivity {
     }
 
     CallBack_List callBack_list = new CallBack_List() {
+        @Override
+        public ArrayList<Score> getScores() {
+            return myDB.getScores();
+        }
+
         @Override
         public void getScoreLocation(double lat, double lon) {
             fragmentGoogleMaps.setLat(lat).setLon(lon);

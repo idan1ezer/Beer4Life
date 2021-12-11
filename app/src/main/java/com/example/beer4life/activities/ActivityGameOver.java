@@ -1,19 +1,33 @@
 package com.example.beer4life.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.beer4life.generalObjects.CompareScores;
 import com.example.beer4life.generalObjects.Heart;
 import com.example.beer4life.R;
+import com.example.beer4life.generalObjects.MSP;
+import com.example.beer4life.generalObjects.MyDB;
+import com.example.beer4life.generalObjects.Score;
+import com.google.gson.Gson;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ActivityGameOver extends AppCompatActivity {
     private Heart[] panel_IMG_hearts;
     private TextView panel_LBL_score;
@@ -28,6 +42,10 @@ public class ActivityGameOver extends AppCompatActivity {
     private double lon;
     private int score;
 
+    private MyDB myDB;
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +54,7 @@ public class ActivityGameOver extends AppCompatActivity {
         findViews();
         setQuote();
         initBTNs();
+        loadFromSP();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -43,8 +62,49 @@ public class ActivityGameOver extends AppCompatActivity {
             lon = extras.getDouble("lon");
             score = extras.getInt("score");
         }
+        if (myDB == null)
+            myDB = new MyDB();
+        myDB.getScores().add(addScore());
 
+        saveToSP();
     }
+
+    private Score addScore() {
+        Score s = new Score().setScore(score).setLat(lat).setLon(lon).setTime(String.valueOf(LocalTime.now().format(dtf)));
+        return s;
+    }
+
+    public void loadFromSP() {
+        if (myDB == null)
+            myDB = new MyDB();
+
+        String js = MSP.getMe().getString("MY_DB", "");
+        myDB = new Gson().fromJson(js, MyDB.class);
+    }
+
+    public void saveToSP() {
+        if (myDB == null)
+            myDB = new MyDB();
+
+        Collections.sort(myDB.getScores(), new CompareScores());
+        myDB = getTop10();
+        String json = new Gson().toJson(myDB);
+        MSP.getMe().putString("MY_DB", json);
+    }
+
+    private MyDB getTop10() {
+        if (myDB == null)
+            myDB = new MyDB();
+
+        ArrayList<Score> res = new ArrayList<>();
+        int counter = 0;
+        while (res.size() < myDB.getScores().size()) {
+            res.add(myDB.getScores().get(counter));
+            counter++;
+        }
+        return myDB.setScores(res);
+    }
+
 
     private void initBTNs() {
         panel_BTN_retry.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +148,7 @@ public class ActivityGameOver extends AppCompatActivity {
         intent.putExtra("score", score);
         intent.putExtra("lat", lat);
         intent.putExtra("lon", lon);
+        intent.putExtra("db", new Gson().toJson(myDB));
         startActivity(intent);
     }
 

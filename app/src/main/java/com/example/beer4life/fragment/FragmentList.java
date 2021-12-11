@@ -20,6 +20,7 @@ import com.example.beer4life.callbacks.CallBack_List;
 import com.example.beer4life.callbacks.CallBack_Settings;
 import com.example.beer4life.generalObjects.Adapter_Score;
 import com.example.beer4life.generalObjects.DataManager;
+import com.example.beer4life.generalObjects.MyDB;
 import com.example.beer4life.generalObjects.Score;
 
 import java.util.ArrayList;
@@ -55,7 +56,8 @@ public class FragmentList extends Fragment {
     }
 
     private void initViews(View view) {
-        ArrayList<Score> scores = DataManager.generateScores();
+        //ArrayList<Score> scores = DataManager.generateScores();
+        scores = callBack_list.getScores();
         Adapter_Score adapter_score = new Adapter_Score(getActivity(), scores);
 
 
