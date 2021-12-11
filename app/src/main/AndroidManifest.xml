@@ -38,15 +38,19 @@
 
         <activity
             android:name=".activities.ActivityTop10"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.ActivityGame"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.ActivityGameOver"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.ActivityStart"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
