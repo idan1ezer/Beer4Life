@@ -13,6 +13,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import android.os.Bundle;
 
@@ -41,6 +43,7 @@ public class ActivityTop10 extends AppCompatActivity {
             score = extras.getInt("score");
         }
     }
+
 
     private void initFragmentList() {
         fragmentList = new FragmentList();

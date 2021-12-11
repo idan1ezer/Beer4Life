@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.example.beer4life.R;
 import com.example.beer4life.callbacks.CallBack_Settings;
 import com.example.beer4life.fragment.FragmentSettings;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ActivityStart extends AppCompatActivity {
     private ImageView panel_IMG_drunk_game;
@@ -67,6 +70,7 @@ public class ActivityStart extends AppCompatActivity {
             }
         }
     };
+
 
 
     private void start() {

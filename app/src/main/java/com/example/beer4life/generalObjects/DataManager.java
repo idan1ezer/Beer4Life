@@ -10,7 +10,7 @@ public class DataManager {
 
         scores.add(new Score()
                 .setTime("00:00")
-                .setAddress("Ramat Gan")
+                //.setAddress("Ramat Gan")
                 .setScore(100)
                 .setLat(32.07248072148954)
                 .setLon(34.82750519956097)
@@ -18,16 +18,11 @@ public class DataManager {
 
         scores.add(new Score()
                 .setTime("11:11")
-                .setAddress("Tel Aviv")
+                //.setAddress("Tel Aviv")
                 .setScore(50)
-                .setLat(32.07248072148954)
-                .setLon(34.82750519956097)
+                .setLat(32.095826879221995)
+                .setLon(34.77487239561254)
         );
-
-
-
-
-
 
 
         return scores;

@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.beer4life.R;
 import com.example.beer4life.callbacks.CallBack_List;
@@ -63,12 +65,19 @@ public class FragmentList extends Fragment {
         // Vertically
         //main_LST_movies.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-
         leaderboard_LST_scores.setHasFixedSize(true);
         leaderboard_LST_scores.setItemAnimator(new DefaultItemAnimator());
         leaderboard_LST_scores.setAdapter(adapter_score);
-    }
 
+        adapter_score.setScoreMapClickListener(new Adapter_Score.ScoreMapClickListener() {
+            @Override
+            public void scoreMapClicked(Score score, int pos) {
+                double lat = score.getLat();
+                double lon = score.getLon();
+                callBack_list.getScoreLocation(lat,lon);
+            }
+        });
+    }
 
     private void findViews(View view) {
         leaderboard_LST_scores = view.findViewById(R.id.leaderboard_LST_scores);

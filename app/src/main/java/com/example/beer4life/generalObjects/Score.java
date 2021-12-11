@@ -5,7 +5,7 @@ public class Score {
     private String time;
     private double lat;
     private double lon;
-    private String address;
+    //private String address;
 
     public Score() { }
 
@@ -45,6 +45,7 @@ public class Score {
         return this;
     }
 
+    /*
     public String getAddress() {
         return address;
     }
@@ -54,6 +55,9 @@ public class Score {
         return this;
     }
 
+     */
+
+
     @Override
     public String toString() {
         return "Score{" +
@@ -61,7 +65,6 @@ public class Score {
                 ", time='" + time + '\'' +
                 ", lat=" + lat +
                 ", lon=" + lon +
-                ", address='" + address + '\'' +
                 '}';
     }
 }

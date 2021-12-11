@@ -1,10 +1,12 @@
 package com.example.beer4life.generalObjects;
 
 import android.app.Activity;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 
 public class Adapter_Score extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Activity activity;
+    //private Activity activity;
     private ArrayList<Score> scores = new ArrayList<>();
     private ScoreMapClickListener scoreMapClickListener;
 
@@ -40,13 +42,13 @@ public class Adapter_Score extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         ScoreViewHolder scoreViewHolder = (ScoreViewHolder) holder;
         Score score = getItem(position);
-        Log.d("pttt", "position= " + position);
+        //Log.d("pttt", "position= " + position);
 
         scoreViewHolder.leaderboard_LBL_date.setText(""+score.getTime());
-        scoreViewHolder.leaderboard_LBL_address.setText(""+score.getAddress());
+        //scoreViewHolder.leaderboard_LBL_address.setText(""+score.getAddress());
         scoreViewHolder.leaderboard_LBL_score.setText(""+score.getScore());
     }
 
@@ -62,7 +64,8 @@ public class Adapter_Score extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 
     public interface ScoreMapClickListener {
-        void scoreMapClicked(double lat, double lon);
+        //void scoreMapClicked(double lat, double lon);
+        void scoreMapClicked(Score score, int pos);
     }
 
 
@@ -70,21 +73,29 @@ public class Adapter_Score extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public class ScoreViewHolder extends RecyclerView.ViewHolder {
 
         public MaterialTextView leaderboard_LBL_date;
-        public MaterialTextView leaderboard_LBL_address;
+        //public MaterialTextView leaderboard_LBL_address;
         public MaterialTextView leaderboard_LBL_score;
-        public MaterialButton leaderboard_BTN_map;
+        //public MaterialButton leaderboard_BTN_map;
 
         public ScoreViewHolder(final View itemview) {
             super(itemview);
             this.leaderboard_LBL_date = itemview.findViewById(R.id.leaderboard_LBL_date);
-            this.leaderboard_LBL_address = itemview.findViewById(R.id.leaderboard_LBL_address);
+            //this.leaderboard_LBL_address = itemview.findViewById(R.id.leaderboard_LBL_address);
             this.leaderboard_LBL_score = itemview.findViewById(R.id.leaderboard_LBL_score);
-            this.leaderboard_BTN_map = itemview.findViewById(R.id.leaderboard_BTN_map);
+            //this.leaderboard_BTN_map = itemview.findViewById(R.id.leaderboard_BTN_map);
 
             itemview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    scoreMapClickListener.scoreMapClicked(getItem(getAdapterPosition()).getLat(),getItem(getAdapterPosition()).getLon());
+                    //double lat = getItem(getAdapterPosition()).getLat();
+                    //double lon = getItem(getAdapterPosition()).getLon();
+                    //Toast.makeText(activity, ""+getAdapterPosition(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(activity, ""+lat +","+lon, Toast.LENGTH_LONG).show();
+                    //SystemClock.sleep(2000);
+
+                    //scoreMapClickListener.scoreMapClicked(lat,lon);
+
+                    scoreMapClickListener.scoreMapClicked(getItem(getAdapterPosition()), getAdapterPosition());
                 }
             });
         }
