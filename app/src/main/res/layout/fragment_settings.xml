@@ -9,7 +9,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:background="#500404">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +27,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:minLines="2"
+                android:textColor="@color/white"
                 android:text="Difficulty"/>
 
             <RadioGroup
@@ -39,11 +44,13 @@
                     android:id="@+id/radio_button_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:text="Easy"/>
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_button_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:text="Hard"/>
             </RadioGroup>
 
@@ -59,22 +66,26 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:minLines="2"
+                    android:textColor="@color/white"
                     android:text="Use Sensors"/>
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/settings_SW_sensors"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <ImageButton
                 android:id="@+id/settings_BTN_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="save"/>
+                android:src="@drawable/img_save"/>
 
         </LinearLayout>
 

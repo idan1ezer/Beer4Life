@@ -2,34 +2,20 @@ package com.example.beer4life.activities;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import com.example.beer4life.R;
 import com.example.beer4life.callbacks.CallBack_List;
 import com.example.beer4life.callbacks.CallBack_Map;
 import com.example.beer4life.fragment.FragmentGoogleMaps;
 import com.example.beer4life.fragment.FragmentList;
-import com.example.beer4life.fragment.FragmentSettings;
-import com.example.beer4life.generalObjects.MSP;
 import com.example.beer4life.generalObjects.MyDB;
 import com.example.beer4life.generalObjects.Score;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
-
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.util.Log;
-import android.widget.Toast;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -42,12 +28,8 @@ public class ActivityTop10 extends AppCompatActivity {
     private double lon;
     private int score;
 
-
     private MyDB myDB;
-    //private ArrayList<Score> temp = new ArrayList<>();
-    //private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +46,6 @@ public class ActivityTop10 extends AppCompatActivity {
         initFragmentMap();
         initFragmentList();
     }
-
 
     private void initFragmentList() {
         fragmentList = new FragmentList();
@@ -96,12 +77,7 @@ public class ActivityTop10 extends AppCompatActivity {
         }
     };
 
-
-
-
-
     CallBack_Map callBack_map = (lat, lon) -> {
-        //Zoom to place
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(googleMap -> {
             LatLng latLng = new LatLng(lat, lon);
@@ -110,7 +86,4 @@ public class ActivityTop10 extends AppCompatActivity {
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15), 5000, null);
         });
     };
-
-
-
 }

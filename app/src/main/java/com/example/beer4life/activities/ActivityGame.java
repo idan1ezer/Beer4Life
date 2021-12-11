@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -29,21 +28,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.beer4life.generalObjects.Drink;
 import com.example.beer4life.generalObjects.Heart;
 import com.example.beer4life.generalObjects.MyService;
 import com.example.beer4life.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
@@ -54,7 +46,6 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
     private final int ROW = 7;
     private final int MAX_LIVES = 3;
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
-
     private int delay = 1000;
 
     private ImageButton panel_BTN_button1;
@@ -67,6 +58,7 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
     private int lives = MAX_LIVES;
     private int score = 0;
     private int addBeerIndex = 0;
+    private int dif;
 
     private SensorManager sensorManager;
     private Sensor accSensor;
@@ -75,10 +67,7 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
     private LocationManager locationManager;
     private double lat;
     private double lon;
-
-    //private SupportMapFragment supportMapFragment;
     private FusedLocationProviderClient client;
-
 
     final Handler handler = new Handler();
     private Runnable r = new Runnable() {
@@ -91,7 +80,6 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,14 +91,15 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            setGameSpeed(extras.getInt("dif"));
-            setGameType(extras.getBoolean("sen"));
+            dif = extras.getInt("dif");
+            setGameSpeed(dif);
+            sens = extras.getBoolean("sen");
+            setGameType(sens);
         }
 
     }
 
     private void checkLocationPermission() {
-        //supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         client = LocationServices.getFusedLocationProviderClient(this);
 
         if (ContextCompat.checkSelfPermission(ActivityGame.this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -120,7 +109,6 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
         }
 
         getLocation();
-        //getCurrentLocation();
     }
 
     @SuppressLint("MissingPermission")
@@ -137,7 +125,6 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
         });
     }
 
-
     @SuppressLint("MissingPermission")
     private void getLocation() {
         try {
@@ -148,7 +135,6 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
             lat = location.getLatitude();
             lon = location.getLongitude();
 
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -156,7 +142,6 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
 
     @Override
     public void onLocationChanged(Location location) {
-        //Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
         try {
             Geocoder geocoder = new Geocoder(ActivityGame.this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
@@ -165,27 +150,21 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
             lat = location.getLatitude();
             lon = location.getLongitude();
 
-
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
-
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-
     }
 
 
@@ -206,9 +185,13 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
 
     private void setGameSpeed(int dif) {
         if (dif == 0)
-            delay = 1000;
+            delay = 800;
         else
-            delay = 600;
+            delay = 500;
+    }
+
+    private int getGameSpeed() {
+        return dif;
     }
 
     private void setGameType(boolean sen) {
@@ -218,6 +201,10 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
         }
         else
             sens = false;
+    }
+
+    private boolean getGameType() {
+        return sens;
     }
 
     @Override
@@ -295,7 +282,6 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
                 v.vibrate(300);
             }
         }
-
         if (lives == 0)
             gameOver();
     }
@@ -309,6 +295,8 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
         intent.putExtra("score", score);
         intent.putExtra("lat", lat);
         intent.putExtra("lon", lon);
+        intent.putExtra("dif", dif);
+        intent.putExtra("sen", sens);
         startActivity(intent);
     }
 
@@ -351,7 +339,6 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
     }
 
     private final SensorEventListener accSensorEventListener = new SensorEventListener() {
-
         @Override
         public void onSensorChanged(SensorEvent event) {
             DecimalFormat df = new DecimalFormat("##.##");
@@ -382,8 +369,6 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
         if(sens)
             sensorManager.unregisterListener(accSensorEventListener);
     }
-
-
 
 
     @SuppressLint("WrongViewCast")
@@ -458,16 +443,5 @@ public class ActivityGame extends AppCompatActivity implements LocationListener{
                 new Heart().setImg(findViewById(R.id.panel_IMG_heart2)).setFull(true),
                 new Heart().setImg(findViewById(R.id.panel_IMG_heart3)).setFull(true)
         };
-
     }
-
-/*
-
-    public void setCurrentLocation(Object currentLocation) {
-        this.currentLocation = currentLocation;
-    }
-
- */
-
-
 }

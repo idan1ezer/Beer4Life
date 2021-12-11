@@ -1,19 +1,16 @@
 package com.example.beer4life.fragment;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import com.example.beer4life.R;
 import com.example.beer4life.callbacks.CallBack_Settings;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -25,7 +22,7 @@ public class FragmentSettings extends Fragment {
     RadioGroup settings_RADIO_difficulty;
     RadioButton settings_RADIO_selected;
     SwitchMaterial settings_SW_sensors;
-    MaterialButton settings_BTN_save;
+    ImageButton settings_BTN_save;
 
     private AppCompatActivity activity;
     private CallBack_Settings callBack_settings;
@@ -57,7 +54,6 @@ public class FragmentSettings extends Fragment {
                     boolean sen = getSensors();
                     callBack_settings.setSettings(dif, sen);
                 }
-
             }
         });
     }
@@ -65,10 +61,14 @@ public class FragmentSettings extends Fragment {
     private int getDifficulty(View view) {
         int checked = settings_RADIO_difficulty.getCheckedRadioButtonId();
         settings_RADIO_selected = view.findViewById(checked);
-        if (settings_RADIO_selected.getText().toString().equals("Easy"))
-            return 0;
-        else
-            return 1;
+        if (settings_RADIO_selected != null) {
+            String selected = settings_RADIO_selected.getText().toString();
+            if (selected.equals("Easy"))
+                return 0;
+            else
+                return 1;
+        }
+        return 0;
     }
 
     private boolean getSensors() {

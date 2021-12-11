@@ -5,18 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ActivityGame">
+    tools:context=".activities.ActivityGame"
+    android:background="@drawable/img_bg2"
+    android:alpha=".97">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/startFrame">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/img_bg2"
-            android:alpha=".97"/>
 
         <RelativeLayout
             android:id="@+id/layout_table"

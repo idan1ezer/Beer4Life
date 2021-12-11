@@ -2,16 +2,13 @@ package com.example.beer4life.activities;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.beer4life.generalObjects.CompareScores;
 import com.example.beer4life.generalObjects.Heart;
 import com.example.beer4life.R;
@@ -19,8 +16,6 @@ import com.example.beer4life.generalObjects.MSP;
 import com.example.beer4life.generalObjects.MyDB;
 import com.example.beer4life.generalObjects.Score;
 import com.google.gson.Gson;
-
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -42,10 +37,11 @@ public class ActivityGameOver extends AppCompatActivity {
     private double lon;
     private int score;
 
+    int dif;
+    boolean sens;
+
     private MyDB myDB;
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +57,8 @@ public class ActivityGameOver extends AppCompatActivity {
             lat = extras.getDouble("lat");
             lon = extras.getDouble("lon");
             score = extras.getInt("score");
+            dif = extras.getInt("dif");
+            sens = extras.getBoolean("sen");
         }
         if (myDB == null)
             myDB = new MyDB();
@@ -132,6 +130,8 @@ public class ActivityGameOver extends AppCompatActivity {
     private void retry() {
         finish();
         Intent intent = new Intent(this, ActivityGame.class);
+        intent.putExtra("dif", dif);
+        intent.putExtra("sen", sens);
         startActivity(intent);
     }
 
@@ -179,7 +179,6 @@ public class ActivityGameOver extends AppCompatActivity {
 
         panel_LBL_quote = findViewById(R.id.panel_LBL_quote);
         panel_IMG_wasted = findViewById(R.id.panel_IMG_wasted);
-
         panel_BTN_retry = findViewById(R.id.panel_BTN_retry);
         panel_BTN_quit = findViewById(R.id.panel_BTN_quit);
         panel_BTN_top10 = findViewById(R.id.panel_BTN_top10);

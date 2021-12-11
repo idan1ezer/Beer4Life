@@ -5,17 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ActivityGameOver">
+    tools:context=".activities.ActivityGameOver"
+    android:background="@drawable/img_bg2"
+    android:alpha=".97">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/img_bg2"
-            android:alpha=".97"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,21 +94,21 @@
                 <ImageButton
                     android:id="@+id/panel_BTN_retry"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/img_retry_red"/>
 
                 <ImageButton
                     android:id="@+id/panel_BTN_quit"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/img_quit_red"/>
 
                 <ImageButton
                     android:id="@+id/panel_BTN_top10"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/img_top_10_red"/>
             </LinearLayout>
